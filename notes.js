@@ -3,23 +3,27 @@ let playing = 0;
 let currNote = 0;
 let count = 0;
 
-function lowVoice() {
-  console.log("low voice");
+function bass() {
+  console.log("bass");
+  //A2
   voiceLow = 110;
-  voiceHigh = 311;
-  buttonLow.hide();
-  buttonMed.hide();
-  buttonHigh.hide();
+  //Eb4
+  voiceHigh = 261.63;
+  buttonBass.hide();
+  buttonTenor.hide();
+  buttonAlto.hide();
+  buttonSoprano.hide();
   state = 3;
 }
 
-function medVoice() {
-  console.log("med voice");
-  voiceLow = 150;
-  voiceHigh = 600;
-  buttonLow.hide();
-  buttonMed.hide();
-  buttonHigh.hide();
+function tenor() {
+  console.log("tenor");
+  voiceLow = 130.81;
+  voiceHigh = 329.63;
+  buttonBass.hide();
+  buttonTenor.hide();
+  buttonAlto.hide();
+  buttonSoprano.hide();
 
   for (i = 0; i < notes.length; i++) {
     //notes[i] += 4;
@@ -27,45 +31,62 @@ function medVoice() {
   state = 3;
 }
 
-function highVoice() {
-  console.log("high voice");
-  voiceLow = 200;
-  voiceHigh = 900;
-  buttonLow.hide();
-  buttonMed.hide();
-  buttonHigh.hide();
+function alto() {
+  console.log("alto");
+  voiceLow = 196.00;
+  voiceHigh = 523.25;
+  buttonBass.hide();
+  buttonTenor.hide();
+  buttonAlto.hide();
+  buttonSoprano.hide();
   state = 3;
 }
 
-function lowRangePlay() {
-  // osc.start();
-  // osc.amp(0.5);
-  // osc.freq(100);
-  // osc.freq(450, 3);
-  // osc.amp(0, 0.1, 0.7);
-  notes = [45, 47, 49, 50, 52, 54, 56, 57];
-  playing = 1;
-  playNote();
+function soprano() {
+  console.log("soprano");
+  voiceLow = 261.63;
+  voiceHigh = 659.25;
+  buttonBass.hide();
+  buttonTenor.hide();
+  buttonAlto.hide();
+  buttonSoprano.hide();
+  state = 3;
 }
 
-function medRangePlay() {
-  // osc.start();
-  // osc.amp(0.5);
-  // osc.freq(150);
-  // osc.freq(600, 3);
-  // osc.amp(0, 0.1, 0.7);
-  notes = [52, 54, 56, 57, 59, 61, 63, 64];
-  playing = 1;
-  playNote();
-}
+// function lowRangePlay() {
+//   // osc.start();
+//   // osc.amp(0.5);
+//   // osc.freq(100);
+//   // osc.freq(450, 3);
+//   // osc.amp(0, 0.1, 0.7);
+//   notes = [45, 47, 49, 50, 52, 54, 56, 57];
+//   playing = 1;
+//   playNote();
+// }
 
-function highRangePlay() {
-  // osc.start();
-  // osc.amp(0.5);
-  // osc.freq(200);
-  // osc.freq(900, 3);
-  // osc.amp(0, 0.1, 0.7);
-  notes = [59, 61, 63, 64, 66, 68, 70, 71];
+// function medRangePlay() {
+//   // osc.start();
+//   // osc.amp(0.5);
+//   // osc.freq(150);
+//   // osc.freq(600, 3);
+//   // osc.amp(0, 0.1, 0.7);
+//   notes = [52, 54, 56, 57, 59, 61, 63, 64];
+//   playing = 1;
+//   playNote();
+// }
+
+// function highRangePlay() {
+//   // osc.start();
+//   // osc.amp(0.5);
+//   // osc.freq(200);
+//   // osc.freq(900, 3);
+//   // osc.amp(0, 0.1, 0.7);
+//   notes = [59, 61, 63, 64, 66, 68, 70, 71];
+//   playing = 1;
+//   playNote();
+// }
+
+function Play() {
   playing = 1;
   playNote();
 }
@@ -107,7 +128,7 @@ function startPressed() {
 function backPressed() {
   startButton.hide();
   backButton.hide();
-  difficultySlider.hide();
+  //difficultySlider.hide();
   modeSelect.hide();
   state = 1;
 }
@@ -126,6 +147,11 @@ function init() {
   state = 3;
   increase = true;
   start = 0;
+  waitCount = 0;
+  pipes = [];
+  if(difficulty > 2){
+    numPipes = 20;
+  }
 }
 
 //increase difficulty by 1

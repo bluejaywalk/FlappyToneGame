@@ -50,12 +50,27 @@ let difficulty = 1;
 let modeSelect;
 let mode;
 
+let speedSelect;
+let speedValue;
+
+let gapSelect;
+let gap;
+
+let intervalSelect;
+let interval;
+
+let nCounter = 1;
+let nodeCount = 3;
+let pipePos;
+
 //new variables below
 let sd;
-let numPipes = 14;
+let numPipes = 10;
 
 //keep track of whether or not to increase difficulty value
 let increase = true;
+
+let waitCount = 0;
 
 function preload() {
   //an attempt to preload the model
@@ -67,13 +82,23 @@ function preload() {
 function setup() {
   createCanvas(640, 480);
   textSize(24);
+  pipePos = height/2;
 
-  buttonLow = createButton("Low Voice");
-  buttonLow.hide();
-  buttonMed = createButton("Medium Voice");
-  buttonMed.hide();
-  buttonHigh = createButton("High Voice");
-  buttonHigh.hide();
+  //buttonLow = createButton("Low Voice");
+  buttonBass = createButton("Bass");
+  //buttonLow.hide();
+  buttonBass.hide();
+  //buttonMed = createButton("Medium Voice");
+  buttonTenor = createButton("Tenor");
+  //buttonMed.hide();
+  buttonTenor.hide();
+  //buttonHigh = createButton("High Voice");
+  buttonAlto = createButton("Alto");
+  //buttonHigh.hide();
+  buttonAlto.hide();
+  
+  buttonSoprano = createButton("Soprano");
+  buttonSoprano.hide();
 
   startButton = createButton("Start");
   startButton.hide();
@@ -97,6 +122,47 @@ function setup() {
   modeSelect.option("Song 1");
   //modeSelect.changed(modeChanged);
   modeSelect.hide();
+  
+  speedSelect = createSelect();
+  speedSelect.option("1");
+  speedSelect.option("2");
+  speedSelect.option("3");
+  speedSelect.option("4");
+  speedSelect.option("5");
+  speedSelect.option("6");
+  speedSelect.option("7");
+  speedSelect.option("8");
+  speedSelect.option("9");
+  speedSelect.option("10");
+  
+  speedSelect.hide();
+  
+  gapSelect = createSelect();
+  gapSelect.option("1");
+  gapSelect.option("2");
+  gapSelect.option("3");
+  gapSelect.option("4");
+  gapSelect.option("5");
+  gapSelect.option("6");
+  gapSelect.option("7");
+  gapSelect.option("8");
+  gapSelect.option("9");
+  gapSelect.option("10");
+  gapSelect.hide();
+  
+  intervalSelect = createSelect();
+  intervalSelect.option("1");
+  intervalSelect.option("2");
+  intervalSelect.option("3");
+  intervalSelect.option("4");
+  intervalSelect.option("5");
+  intervalSelect.option("6");
+  intervalSelect.option("7");
+  intervalSelect.option("8");
+  intervalSelect.option("9");
+  intervalSelect.option("10");
+  
+  intervalSelect.hide();
 }
 
 function startPitch() {
@@ -135,6 +201,7 @@ function getPitch() {
 
 function draw() {
   background(0);
+  //print(waitCount);
   //print(state);
   //if we haven't started yet (model is still loading)
 
@@ -147,26 +214,40 @@ function draw() {
   //module has loaded (start >0)
 
   if (state == 1) {
-    buttonLow.position(100, 490);
-    buttonMed.position(250, 490);
-    buttonHigh.position(400, 490);
+    //buttonLow.position(100, 490);
+    buttonBass.position(50,490);
+    //buttonMed.position(250, 490);
+    buttonTenor.position(200,490);
+    //buttonHigh.position(400, 490);
+    buttonAlto.position(350,490);
+    buttonSoprano.position(500,490);
 
-    buttonLow.show();
-    buttonMed.show();
-    buttonHigh.show();
+//     buttonLow.show();
+//     buttonMed.show();
+//     buttonHigh.show();
+    
+    buttonBass.show();
+    buttonTenor.show();
+    buttonAlto.show();
+    buttonSoprano.show();
+    
     state = 2;
   }
   if (state == 2) {
-    buttonLow.mouseOver(lowRangePlay);
-    buttonLow.mouseOut(playFunction);
-    buttonMed.mouseOver(medRangePlay);
-    buttonMed.mouseOut(playFunction);
-    buttonHigh.mouseOver(highRangePlay);
-    buttonHigh.mouseOut(playFunction);
+    
+    // buttonBass.mouseOver(Play);
+    // buttonBass.mouseOut(playFunction);
+    // buttonTenor.mouseOver(Play);
+    // buttonTenor.mouseOut(playFunction);
+    // buttonAlto.mouseOver(Play);
+    // buttonAlto.mouseOut(playFunction);
+    // buttonSoprano.mouseOver(Play);
+    // buttonSoprano.mouseOut(playFunction);
 
-    buttonLow.mousePressed(lowVoice);
-    buttonMed.mousePressed(medVoice);
-    buttonHigh.mousePressed(highVoice);
+    buttonBass.mousePressed(bass);
+    buttonTenor.mousePressed(tenor);
+    buttonAlto.mousePressed(alto);
+    buttonSoprano.mousePressed(soprano);
   }
 
   //pipe count
@@ -182,7 +263,7 @@ function draw() {
         startButton.mousePressed(startPressed);
         backButton.mousePressed(backPressed);
 
-        text("Difficulty: ", width * 0.3, height * 0.4);
+        // text("Difficulty: ", width * 0.3, height * 0.4);
 
         //difficultySlider.position(width * 0.3, height * 0.6);
         //difficultySlider.show();
@@ -192,16 +273,30 @@ function draw() {
 
         // difficulty = 1;
 
-        text(difficulty, width * 0.3, height * 0.55);
+        // text(difficulty, width * 0.3, height * 0.55);
 
         text("Mode: ", width * 0.6, height * 0.4);
         modeSelect.position(width * 0.6, height * 0.6);
         modeSelect.show();
         mode = modeSelect.value();
         //console.log(mode);
+        
+        text("Speed: ", 20,30);
+        speedSelect.position(30,130);
+        speedSelect.show();
+
+        text("Gap: ", 200,30);
+        gapSelect.position(210,130);
+        gapSelect.show();
+        
+        text("Interval: ", 380,30);
+        intervalSelect.position(390,130);
+        intervalSelect.show();
+        
+        
 
         //as difficulty increases, speed increases (lower number is faster)
-        speed = 120 - (difficulty * 10);
+        //speed = 120 - (difficulty * 10);
       }
       if (currentFreq) {
         //text(currentNote, 300, 100);
@@ -237,7 +332,34 @@ function draw() {
       //loop through array of pipes, show and update each one
       //see pipe.js
       if (start == 1) {
+        waitCount += 1;
+        
+        text("Speed: ", 20,30);
+        text("Gap: ", 200,30);
+        text("Interval: ", 380,30);
+
+
+        // if(speedSelect.value() == 1) {
+        //   speed = 120;
+        // }else if(speedSelect.value() == 2){
+        //   speed = 60;
+        // } 
+        
+        speedValue = speedSelect.value();
+        speed = 150 - (10 * speedValue);
+        
+        interval = intervalSelect.value();
+        
+        gap = gapSelect.value();
+        
+        // if(gapSelect.value() == 1){
+        //   gap = 100;
+        // }else if(gapSelect.value() == 2){
+        //   gap = 50;
+        // }
+        
         for (i = pipes.length - 1; i >= 0; i--) {
+  
           pipes[i].show();
           pipes[i].update();
 
@@ -258,30 +380,42 @@ function draw() {
         }
 
         //create a new pipe every X number of frames after the model loads
-        if ((frameCount - startFrame) % speed == 0) {
+        if ((frameCount - startFrame) % speed == 0 && waitCount > 200) {
           if (mode == "Random Notes") {
             pipes.push(new Pipe());
-          } else {
-            pipes.push(new Pipe(song[currPipe]));
           }
 
           pipeCount += 1;
           //print(pipe);
           currPipe += 1;
+          if(currPipe % nodeCount == 0){
+            if(interval <= 5){
+              nodeCount = int(random(3,4));
+            }else if (interval > 5 ){
+              nodeCount = int(random(2,4));
+            }else if (interval > 7){
+              nodeCount = int(random(1,3));
+            }
+            if(pipePos < height/2){
+              pipePos = int(random(height/2,height));
+            }else if(pipePos >= height/2){
+              pipePos = int(random(0,height/2));
+            }
+          }
         }
 
         //display score
         textSize(24);
         strokeWeight(1);
         fill(102, 255, 102);
-        text("Score: ", 20, 40);
-        text(score, 100, 40);
+        text("Score: ", 500,40);
+        text(score, 600, 40);
       }
     }
 
     //if max number of pipes reached
     else {
-      text("Game Over", 20, 40);
+      text("Game Over", 20, 150);
       text("Final Score: " + score + "/" + numPipes, 20, 80);
       increaseDifficulty();
       //print(difficulty);
