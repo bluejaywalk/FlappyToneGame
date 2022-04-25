@@ -5,6 +5,7 @@ let count = 0;
 
 function bass() {
   console.log("bass");
+  range = "Bass"
   //A2
   voiceLow = 110;
   //Eb4
@@ -18,6 +19,7 @@ function bass() {
 
 function tenor() {
   console.log("tenor");
+  range = "Tenor";
   voiceLow = 130.81;
   voiceHigh = 329.63;
   buttonBass.hide();
@@ -33,6 +35,7 @@ function tenor() {
 
 function alto() {
   console.log("alto");
+  range = "Alto"
   voiceLow = 196.00;
   voiceHigh = 523.25;
   buttonBass.hide();
@@ -44,6 +47,7 @@ function alto() {
 
 function soprano() {
   console.log("soprano");
+  range = "Soprano"
   voiceLow = 261.63;
   voiceHigh = 659.25;
   buttonBass.hide();

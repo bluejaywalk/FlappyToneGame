@@ -47,6 +47,7 @@ let historyLength = 40;
 let difficultySlider;
 let difficulty = 1;
 
+let range;
 let modeSelect;
 let mode;
 
@@ -107,6 +108,9 @@ function setup() {
 
   restartButton = createButton("Next Level");
   restartButton.hide();
+
+  saveButton = createButton("Save");
+  saveButton.hide();
 
   //setting a vector to the right side of the circle, useful for passing in between functions
   circleVector = createVector(circleX + 50, height / 2);
@@ -169,6 +173,8 @@ function startPitch() {
   //starting the machine learning model
   pitch = ml5.pitchDetection("./model/", audioContext, mic.stream, modelLoaded);
   console.log("pitch starting");
+ 
+  
 }
 
 function modelLoaded() {
@@ -176,7 +182,14 @@ function modelLoaded() {
   console.log("model loaded");
 
   //what frame are we starting on?
-
+  userId = firebase.auth().currentUser.uid;
+  console.log(userId);
+  scoreRef = firebase.database().ref('/users/' + userId);
+  scoreRef.on('value', (snapshot) => {
+    const data = snapshot.val();
+    console.log(data.gap);
+    document.getElementById('user-info').textContent = "Range: " + data.range + " Speed: " + data.speed + " Interval: " + data.interval + " Gap: " + data.gap + " Score: " + data.score;
+  });
   getPitch();
 }
 
@@ -419,6 +432,11 @@ function draw() {
       text("Final Score: " + score + "/" + numPipes, 20, 80);
       increaseDifficulty();
       //print(difficulty);
+      
+      saveButton.position(300, 400);
+      saveButton.show();
+      saveButton.mousePressed(savePressed);
+
       restartButton.position(400, 490);
       restartButton.show();
       restartButton.mousePressed(restartPressed);
@@ -427,6 +445,20 @@ function draw() {
       //init();
     }
   }
+}
+
+function savePressed(){
+  userId = firebase.auth().currentUser.uid;
+  console.log(userId);
+
+  firebase.database().ref('users/' + userId).set({
+    range: range,
+    speed: int(speedValue),
+    interval: int(interval),
+    gap: int(gap),
+    score: score
+    //some more user data
+  });
 }
 
 // function modeChanged(){

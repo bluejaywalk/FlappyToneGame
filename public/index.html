@@ -1,0 +1,79 @@
+<html><head>
+  <meta charset="UTF-8">
+
+  <title>Pitch Tone Game</title>
+  <script src="p5.js"></script>
+  <script src="p5.dom.min.js"></script>
+  <script src="p5.sound.min.js"></script>
+  <script src="ml5.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-database.js"></script>
+  <script src="firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css">
+<script src="firesetup.js"></script>
+<script type="text/javascript">
+  var userId;
+  initApp = function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var uid = user.uid;
+        var phoneNumber = user.phoneNumber;
+        var providerData = user.providerData;
+        user.getIdToken().then(function(accessToken) {
+          document.getElementById('sign-in-status').textContent = 'Signed in';
+          document.getElementById('user-info').textContent = 'User info here';
+          // document.getElementById('sign-in').textContent = 'Sign out';
+          //document.getElementById('user-email').textContent = email;
+          // document.getElementById('user-id').textContent = uid;
+          // document.getElementById('user-id').innerText = uid;
+          userId = uid;
+          // document.getElementById('account-details').textContent = JSON.stringify({
+          //   displayName: displayName,
+          //   email: email,
+          //   emailVerified: emailVerified,
+          //   phoneNumber: phoneNumber,
+          //   photoURL: photoURL,
+          //   uid: uid,
+          //   accessToken: accessToken,
+          //   providerData: providerData
+          // }, 
+          // null, '  ');
+        });
+      } else {
+        // User is signed out.
+        document.getElementById('sign-in-status').textContent = 'Signed out';
+        document.getElementById('sign-in').textContent = 'Sign in';
+        document.getElementById('account-details').textContent = 'null';
+      }
+    }, function(error) {
+      console.log(error);
+    });
+  };
+
+  window.addEventListener('load', function() {
+    initApp()
+  });
+</script>
+</head>
+
+<body>
+  
+  <h1>Pitch Tone Game</h1>
+  <script src="sketch.js"></script>
+  <script src="pipe.js"></script>
+  <script src="notes.js"></script>
+
+  <div id="firebaseui-auth-container">
+    <div id="sign-in-status"></div>
+    <!-- <div id="user-email"></div>
+    <div id="account-details"></div> -->
+    
+  </div>
+  <div id="user-info"></div>
+</body></html>
