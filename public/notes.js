@@ -151,6 +151,7 @@ function backPressed() {
 //restart the game with higher difficulty
 function restartPressed() {
   restartButton.hide();
+  saveButton.hide();
   init();
 }
 
