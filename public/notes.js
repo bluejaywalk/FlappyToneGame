@@ -5,8 +5,8 @@ let count = 0;
 
 function bass() {
   //console.log("bass");
+    //A2
   range = "Bass"
-  //A2
   voiceLow = 110;
   //Eb4
   voiceHigh = 261.63;
@@ -154,6 +154,11 @@ function restartPressed() {
   init();
 }
 
+function exit(){
+  state = 4;
+  milliseconds = millis();
+}
+
 //initalize variables and state
 function init() {
   score = 0;
@@ -173,6 +178,8 @@ function init() {
 function increaseDifficulty() {
   if (increase && difficulty < 5) {
     difficulty += 1;
+    finalScore += score;
+    totalPipes += numPipes;
   }
   increase = false;
 }

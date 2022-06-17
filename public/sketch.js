@@ -77,12 +77,21 @@ let py;
 var collide;
 let hitTop;
 
+let addScore = true;
+let finalScore = 0;
+let totalPipes = 0;
+let milliseconds;
+
 function preload() {
   //an attempt to preload the model
-  
+  audioContext = getAudioContext();
+  mic = new p5.AudioIn();
+  mic.start(startPitch);
 }
 
+
 function setup() {
+  textAlign(LEFT);
   createCanvas(640, 480);
   textSize(24);
   pipePos = height/2;
@@ -90,7 +99,6 @@ function setup() {
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch);
-
   //buttonLow = createButton("Low Voice");
   buttonBass = createButton("Bass");
   //buttonLow.hide();
@@ -114,8 +122,12 @@ function setup() {
 
   saveButton = createButton("Save");
   saveButton.hide();
+
   restartButton = createButton("Next Round");
   restartButton.hide();
+  
+  exitButton = createButton("Exit");
+  exitButton.hide();
 
   //setting a vector to the right side of the circle, useful for passing in between functions
   circleVector = createVector(circleX + 50, height / 2);
@@ -286,6 +298,10 @@ function draw() {
   //pipe count
 
   if (state == 3) {
+    
+    
+
+    
     if (pipeCount < numPipes + 1) {
       if (start == 0) {
         startButton.position(400, 490);
@@ -364,6 +380,12 @@ function draw() {
       if (start == 1) {
         waitCount += 1;
         
+
+
+        exitButton.position(500,490);
+        exitButton.show();
+        exitButton.mousePressed(exit);
+        
         text("Speed: ", 20,30);
         text("Gap: ", 200,30);
         // text("Interval: ", 380,30);
@@ -394,8 +416,13 @@ function draw() {
           }
 
           //need to find a better way to do this
-          if (pipes[i].x == 112 && hit == 0) {
+          if (pipes[i].x < 146 && pipes[i].x > 114 && hit == 0 && addScore == true) {
             score += 1;
+            addScore = false;
+          }
+          
+          if(pipes[i].x < 50) {
+            addScore = true;
           }
 
           if (pipes[i].offscreen()) {
@@ -441,8 +468,9 @@ function draw() {
  
     //if max number of pipes reached
     else {
-      text("Game Over", 20, 150);
-      text("Final Score: " + score + "/" + numPipes, 20, 80);
+      text("Round Completed!", 20, 120);
+      text("Score: " + score + "/" + numPipes, 20, 150);
+
       increaseDifficulty();
       //print(difficulty);
       saveButton.position(300, 400);
@@ -456,21 +484,36 @@ function draw() {
       //init();
     }
   }
-}
-function savePressed(){
-  userId = firebase.auth().currentUser.uid;
-  console.log(userId);
+  if(state == 4){
+    textAlign(CENTER);
+    // let milliseconds = millis();
+    let minutes = milliseconds/60000;
+    // let playTime = round(minutes,2);
+    let playTime = parseInt((minutes).toFixed(3));
+    text("You Played for " + playTime + " Minutes!" ,width/2,height/2);
+    text("Final Score: " + finalScore + "/" + totalPipes, width/2,height/2+30);
+    text("Accuracy: " + finalScore/totalPipes*100 + "%", width/2, height/2+60);
+    exitButton.hide();
+    saveButton.hide();
+    speedSelect.hide();
+    gapSelect.hide();
+    restartButton.hide();
+  }
+  function savePressed(){
+    userId = firebase.auth().currentUser.uid;
+    console.log(userId);
+    
   
-
-  firebase.database().ref('users/' + userId + '/' + Date()).set({
-    range: range,
-    speed: int(speedValue),
-    interval: int(interval),
-    gap: int(gap),
-    score: score
-    //some more user data
-  });
+    firebase.database().ref('users/' + userId + '/' + Date()).set({
+      range: range,
+      speed: int(speedValue),
+      interval: int(interval),
+      gap: int(gap),
+      score: score
+      //some more user data
+    });
 }
+
 // function modeChanged(){
 //   mode = modeSelect.value();
 // }
@@ -495,4 +538,4 @@ function pointCircle(gx, gy, cx, cy) {
   return false;
 }
 
-
+}
