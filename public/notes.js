@@ -4,7 +4,7 @@ let currNote = 0;
 let count = 0;
 
 function bass() {
-  console.log("bass");
+  //console.log("bass");
   range = "Bass"
   //A2
   voiceLow = 110;
@@ -18,7 +18,7 @@ function bass() {
 }
 
 function tenor() {
-  console.log("tenor");
+  //console.log("tenor");
   range = "Tenor";
   voiceLow = 130.81;
   voiceHigh = 329.63;
@@ -34,7 +34,7 @@ function tenor() {
 }
 
 function alto() {
-  console.log("alto");
+  //console.log("alto");
   range = "Alto"
   voiceLow = 196.00;
   voiceHigh = 523.25;
@@ -46,7 +46,7 @@ function alto() {
 }
 
 function soprano() {
-  console.log("soprano");
+  //console.log("soprano");
   range = "Soprano"
   voiceLow = 261.63;
   voiceHigh = 659.25;
@@ -57,38 +57,49 @@ function soprano() {
   state = 3;
 }
 
-// function lowRangePlay() {
-//   // osc.start();
-//   // osc.amp(0.5);
-//   // osc.freq(100);
-//   // osc.freq(450, 3);
-//   // osc.amp(0, 0.1, 0.7);
-//   notes = [45, 47, 49, 50, 52, 54, 56, 57];
-//   playing = 1;
-//   playNote();
-// }
+function bassPlay() {
+  // osc.start();
+  // osc.amp(0.5);
+  // osc.freq(100);
+  // osc.freq(450, 3);
+  // osc.amp(0, 0.1, 0.7);
+  notes = [45, 47, 49, 50, 52, 54, 56, 57];
+  playing = 1;
+  playNote();
+}
 
-// function medRangePlay() {
-//   // osc.start();
-//   // osc.amp(0.5);
-//   // osc.freq(150);
-//   // osc.freq(600, 3);
-//   // osc.amp(0, 0.1, 0.7);
-//   notes = [52, 54, 56, 57, 59, 61, 63, 64];
-//   playing = 1;
-//   playNote();
-// }
+function tenorPlay() {
+  // osc.start();
+  // osc.amp(0.5);
+  // osc.freq(150);
+  // osc.freq(600, 3);
+  // osc.amp(0, 0.1, 0.7);
+  notes = [48, 50, 52, 53, 55, 57, 59, 60];
+  playing = 1;
+  playNote();
+}
 
-// function highRangePlay() {
-//   // osc.start();
-//   // osc.amp(0.5);
-//   // osc.freq(200);
-//   // osc.freq(900, 3);
-//   // osc.amp(0, 0.1, 0.7);
-//   notes = [59, 61, 63, 64, 66, 68, 70, 71];
-//   playing = 1;
-//   playNote();
-// }
+function altoPlay() {
+  // osc.start();
+  // osc.amp(0.5);
+  // osc.freq(200);
+  // osc.freq(900, 3);
+  // osc.amp(0, 0.1, 0.7);
+  notes = [55, 57, 59, 60, 62, 64, 66, 67];
+  playing = 1;
+  playNote();
+}
+
+function sopranoPlay() {
+  // osc.start();
+  // osc.amp(0.5);
+  // osc.freq(200);
+  // osc.freq(900, 3);
+  // osc.amp(0, 0.1, 0.7);
+  notes = [60, 62, 64, 65, 67, 69, 71, 72];
+  playing = 1;
+  playNote();
+}
 
 function Play() {
   playing = 1;
@@ -100,10 +111,10 @@ function playNote() {
     osc.start();
     osc.freq(midiToFreq(notes[currNote]));
     osc.amp(0.5);
-    console.log("play note");
+    //console.log("play note");
     if (currNote < 8) {
       currNote++;
-      setTimeout(playNote, 400);
+      setTimeout(playNote, 200);
     } else {
       osc.stop();
       currNote = 0;
