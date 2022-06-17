@@ -299,8 +299,7 @@ function draw() {
 
   if (state == 3) {
     
-    
-
+    //test modification for testing
     
     if (pipeCount < numPipes + 1) {
       if (start == 0) {
