@@ -152,6 +152,7 @@ function backPressed() {
 function restartPressed() {
   restartButton.hide();
   saveButton.hide();
+  saveFlag = 0;
   init();
 }
 

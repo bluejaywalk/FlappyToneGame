@@ -84,6 +84,7 @@ let finalScore = 0;
 let totalPipes = 0;
 let milliseconds;
 
+let saveFlag = 0;
 function preload() {
   //an attempt to preload the model
   audioContext = getAudioContext();
@@ -472,7 +473,12 @@ function draw() {
 
       increaseDifficulty();
       //print(difficulty);
-      savePressed()
+      console.log("Save Flag: " + saveFlag)
+      if(saveFlag == 0){
+        savePressed()
+        saveFlag = 1;
+      }
+      
       // saveButton.position(300, 400);
       // saveButton.show();
       // saveButton.mousePressed(savePressed);
