@@ -472,9 +472,10 @@ function draw() {
 
       increaseDifficulty();
       //print(difficulty);
-      saveButton.position(300, 400);
-      saveButton.show();
-      saveButton.mousePressed(savePressed);
+      savePressed()
+      // saveButton.position(300, 400);
+      // saveButton.show();
+      // saveButton.mousePressed(savePressed);
       restartButton.position(400, 490);
       restartButton.show();
       restartButton.mousePressed(restartPressed);
@@ -500,7 +501,7 @@ function draw() {
   }
   function savePressed(){
     userId = firebase.auth().currentUser.uid;
-    console.log(userId);
+    console.log(userId + "saved");
     
   
     firebase.database().ref('users/' + userId + '/' + Date()).set({
