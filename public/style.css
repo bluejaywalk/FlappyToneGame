@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+  }
+  
+  /* html, body {
+    margin: 0;
+    padding: 0;
+  } */
+  
+  canvas {
+    display: block;
+  }
+  
+  .mySliders{
+    width: 150px;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+  
+  .mySliders:focus {
+    outline: none;
+  }
+  
+  .mySliders::-webkit-slider-runnable-track {
+    background: #D1D1D1;
+    height: 3px;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  
+  .mySliders::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -6px;
+    border-radius: 8px; 
+  }
+  
+  .button {
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+  }

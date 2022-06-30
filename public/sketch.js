@@ -94,39 +94,46 @@ function preload() {
 
 
 function setup() {
-  textAlign(LEFT);
+  textAlign(CENTER);
   createCanvas(640, 480);
-  textSize(24);
+  textSize(20);
+  textFont("Montserrat");
+  textStyle(NORMAL);
   pipePos = height/2;
 
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch);
-  //buttonLow = createButton("Low Voice");
+
   buttonBass = createButton("Bass");
-  //buttonLow.hide();
+  buttonBass.addClass("button");
   buttonBass.hide();
-  //buttonMed = createButton("Medium Voice");
+
   buttonTenor = createButton("Tenor");
-  //buttonMed.hide();
+  buttonTenor.addClass("button");
   buttonTenor.hide();
-  //buttonHigh = createButton("High Voice");
+
   buttonAlto = createButton("Alto");
-  //buttonHigh.hide();
+  buttonAlto.addClass("button");
   buttonAlto.hide();
   
   buttonSoprano = createButton("Soprano");
+  buttonSoprano.addClass("button");
   buttonSoprano.hide();
 
   startButton = createButton("Start");
+  startButton.addClass("button");
   startButton.hide();
+
   backButton = createButton("Back");
+  backButton.addClass("button");
   backButton.hide();
 
   saveButton = createButton("Save");
   saveButton.hide();
 
   restartButton = createButton("Next Round");
+  restartButton.addClass("button");
   restartButton.hide();
   
   exitButton = createButton("Exit");
@@ -147,35 +154,38 @@ function setup() {
   //modeSelect.changed(modeChanged);
   modeSelect.hide();
   
-  speedSelect = createSelect();
-  speedSelect.option("Slowest (Easiest)",[1]);
-  
-  //do not work 
-  speedSelect.option("Slow",[2]);
-  speedSelect.option("Neutral",[3]);
-  
-  //works
-  speedSelect.option("Fast",[4]);
-  speedSelect.option("Fastest (Hardest)",[5]);
+  // speedSelect = createSelect();
+  // speedSelect.option("Slowest (Easiest)",[1]);
+  // speedSelect.option("Slow",[2]);
+  // speedSelect.option("Neutral",[3]);
+  // speedSelect.option("Fast",[4]);
+  // speedSelect.option("Fastest (Hardest)",[5]);
   // speedSelect.option("6");
   // speedSelect.option("7");
   // speedSelect.option("8");
   // speedSelect.option("9");
   // speedSelect.option("10");
-  
+
+  speedSelect = createSlider(1, 5, 1, 1);
+  speedSelect.position(30,90);
+  speedSelect.addClass("mySliders");
   speedSelect.hide();
   
-  gapSelect = createSelect();
-  gapSelect.option("Loosest (Easiest)",[1]);
-  gapSelect.option("Loose",[2]);
-  gapSelect.option("Neutral",[3]);
-  gapSelect.option("Precise",[4]);
-  gapSelect.option("Most Precise (Hardest)",[5]);
+  // gapSelect = createSelect();
+  // gapSelect.option("Loosest (Easiest)",[1]);
+  // gapSelect.option("Loose",[2]);
+  // gapSelect.option("Neutral",[3]);
+  // gapSelect.option("Precise",[4]);
+  // gapSelect.option("Most Precise (Hardest)",[5]);
   // gapSelect.option("6");
   // gapSelect.option("7");
   // gapSelect.option("8");
   // gapSelect.option("9");
   // gapSelect.option("10");
+
+  gapSelect = createSlider(1,5,1,1);
+  gapSelect.position(230,90);
+  gapSelect.addClass("mySliders");
   gapSelect.hide();
   
 //   intervalSelect = createSelect();
@@ -291,7 +301,7 @@ function draw() {
     buttonSoprano.mouseOut(playFunction);
 
     fill(255);
-    text("Choose an option that you thinks suits your vocal range", 20, height / 2);
+    text("Choose an option that you think suits your vocal range:", width/2, height/2);
     buttonBass.mousePressed(bass);
     buttonTenor.mousePressed(tenor);
     buttonAlto.mousePressed(alto);
@@ -319,13 +329,18 @@ function draw() {
         mode = "Random Notes";
         //console.log(mode);
         
-        text("Speed: ", 20,30);
-        speedSelect.position(30,130);
+        textSize(20);
+        text("Speed: ", 65,30);
+        // speedSelect.position(30,130);
         speedSelect.show();
 
-        text("Gap: ", 200,30);
-        gapSelect.position(210,130);
+        text("Gap Size: ", 275,30);
+        // gapSelect.position(210,130);
         gapSelect.show();
+
+        textSize(15);
+        text("Slowest <> Fastest", 105, 80);
+        text("Largest <> Smallest", 307, 80);
         
         // text("Interval: ", 380,30);
         // intervalSelect.position(390,130);
@@ -379,15 +394,21 @@ function draw() {
       //see pipe.js
       if (start == 1) {
         waitCount += 1;
-        
 
-
-        exitButton.position(500,490);
+        exitButton.position(500,450);
+        exitButton.addClass("button");
         exitButton.show();
         exitButton.mousePressed(exit);
         
-        text("Speed: ", 20,30);
-        text("Gap: ", 200,30);
+        textSize(20);
+        text("Speed: ", 65,30);        
+        text("Gap Size: ", 275,30);
+        textSize(15);
+        text("Slowest <> Fastest", 105, 80);
+        text("Largest <> Smallest", 307, 80);
+
+        // text("Speed: ", 20,30);
+        // text("Gap: ", 200,30);
         // text("Interval: ", 380,30);
         
         speedValue = speedSelect.value(); //1-5
@@ -459,8 +480,9 @@ function draw() {
         //display score
         textSize(24);
         strokeWeight(1);
-        fill(102, 255, 102);
-        text("Score: " + score + "/" + numPipes, 500,40);
+        // fill(102, 255, 102);
+        fill(255);
+        text("Score: " + score + "/" + numPipes, 520,60);
         // text(score, 575, 40);
         // text("/" + numPipes, 600,40);
       }
@@ -468,11 +490,12 @@ function draw() {
  
     //if max number of pipes reached
     else {
-      text("Round Completed!", 20, 120);
-      text("Score: " + score + "/" + numPipes, 20, 150);
+      text("Round Completed!", width/2, height/2);
+      text("Score: " + score + "/" + numPipes, width/2, height/2 + 30);
 
       increaseDifficulty();
       //print(difficulty);
+      
       console.log("Save Flag: " + saveFlag)
       if(saveFlag == 0){
         savePressed()
@@ -482,7 +505,7 @@ function draw() {
       // saveButton.position(300, 400);
       // saveButton.show();
       // saveButton.mousePressed(savePressed);
-      restartButton.position(400, 490);
+      restartButton.position(30, 430);
       restartButton.show();
       restartButton.mousePressed(restartPressed);
 
@@ -496,6 +519,8 @@ function draw() {
     let minutes = milliseconds/60000;
     // let playTime = round(minutes,2);
     let playTime = parseInt((minutes).toFixed(3));
+    text(24);
+    stroke(255);
     text("You Played for " + playTime + " Minutes!" ,width/2,height/2);
     text("Final Score: " + finalScore + "/" + totalPipes, width/2,height/2+30);
     text("Accuracy: " + finalScore/totalPipes*100 + "%", width/2, height/2+60);
