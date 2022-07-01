@@ -84,6 +84,9 @@ let finalScore = 0;
 let totalPipes = 0;
 let milliseconds;
 
+let startTime;
+let endTime;
+
 let saveFlag = 0;
 function preload() {
   //an attempt to preload the model
@@ -167,7 +170,7 @@ function setup() {
   // speedSelect.option("10");
 
   speedSelect = createSlider(1, 5, 1, 1);
-  speedSelect.position(30,90);
+  speedSelect.position(30,140);
   speedSelect.addClass("mySliders");
   speedSelect.hide();
   
@@ -184,7 +187,7 @@ function setup() {
   // gapSelect.option("10");
 
   gapSelect = createSlider(1,5,1,1);
-  gapSelect.position(230,90);
+  gapSelect.position(230,140);
   gapSelect.addClass("mySliders");
   gapSelect.hide();
   
@@ -495,8 +498,10 @@ function draw() {
 
       increaseDifficulty();
       //print(difficulty);
-      
-      console.log("Save Flag: " + saveFlag)
+      endTime = millis()
+      totalTime = endTime - startTime;
+      //console.log(endTime);
+      //console.log("Save Flag: " + saveFlag)
       if(saveFlag == 0){
         savePressed()
         saveFlag = 1;
@@ -540,7 +545,8 @@ function draw() {
       speed: int(speedValue),
       interval: int(interval),
       gap: int(gap),
-      score: score
+      score: score,
+      time: totalTime
       //some more user data
     });
 }

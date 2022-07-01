@@ -138,6 +138,7 @@ function startPressed() {
   modeSelect.hide();
   startFrame = frameCount;
   start = 1;
+  startTime = millis()
 }
 
 function backPressed() {
