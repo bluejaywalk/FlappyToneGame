@@ -63,7 +63,8 @@ function bassPlay() {
   // osc.freq(100);
   // osc.freq(450, 3);
   // osc.amp(0, 0.1, 0.7);
-  notes = [45, 47, 49, 50, 52, 54, 56, 57];
+  // notes = [45, 47, 49, 50, 52, 54, 56, 57];
+  notes = [45, 57];
   playing = 1;
   playNote();
 }
@@ -74,7 +75,8 @@ function tenorPlay() {
   // osc.freq(150);
   // osc.freq(600, 3);
   // osc.amp(0, 0.1, 0.7);
-  notes = [48, 50, 52, 53, 55, 57, 59, 60];
+  // notes = [48, 50, 52, 53, 55, 57, 59, 60];
+  notes = [48, 60];
   playing = 1;
   playNote();
 }
@@ -85,7 +87,8 @@ function altoPlay() {
   // osc.freq(200);
   // osc.freq(900, 3);
   // osc.amp(0, 0.1, 0.7);
-  notes = [55, 57, 59, 60, 62, 64, 66, 67];
+  // notes = [55, 57, 59, 60, 62, 64, 66, 67];
+  notes = [55, 67];
   playing = 1;
   playNote();
 }
@@ -96,7 +99,8 @@ function sopranoPlay() {
   // osc.freq(200);
   // osc.freq(900, 3);
   // osc.amp(0, 0.1, 0.7);
-  notes = [60, 62, 64, 65, 67, 69, 71, 72];
+  // notes = [60, 62, 64, 65, 67, 69, 71, 72];
+  notes = [60, 72];
   playing = 1;
   playNote();
 }
@@ -112,9 +116,9 @@ function playNote() {
     osc.freq(midiToFreq(notes[currNote]));
     osc.amp(0.5);
     //console.log("play note");
-    if (currNote < 8) {
+    if (currNote < 2) {
       currNote++;
-      setTimeout(playNote, 200);
+      setTimeout(playNote, 350);
     } else {
       osc.stop();
       currNote = 0;
@@ -152,6 +156,7 @@ function backPressed() {
 //restart the game with higher difficulty
 function restartPressed() {
   restartButton.hide();
+  continueButton.hide();
   saveButton.hide();
   saveFlag = 0;
   init();

@@ -128,7 +128,7 @@ function setup() {
   startButton.addClass("button");
   startButton.hide();
 
-  backButton = createButton("Back");
+  backButton = createButton("Back to Range Selection");
   backButton.addClass("button");
   backButton.hide();
 
@@ -139,6 +139,10 @@ function setup() {
   restartButton.addClass("button");
   restartButton.hide();
   
+  continueButton = createButton("Continue");
+  continueButton.addClass("button");
+  continueButton.hide();
+
   exitButton = createButton("Exit");
   exitButton.hide();
 
@@ -170,8 +174,8 @@ function setup() {
   // speedSelect.option("10");
 
   speedSelect = createSlider(1, 5, 1, 1);
-  speedSelect.position(30,140);
-  speedSelect.addClass("mySliders");
+  speedSelect.position(30,132);
+  // speedSelect.addClass("mySliders");
   speedSelect.hide();
   
   // gapSelect = createSelect();
@@ -187,8 +191,8 @@ function setup() {
   // gapSelect.option("10");
 
   gapSelect = createSlider(1,5,1,1);
-  gapSelect.position(230,140);
-  gapSelect.addClass("mySliders");
+  gapSelect.position(230,132);
+  // gapSelect.addClass("mySliders");
   gapSelect.hide();
   
 //   intervalSelect = createSelect();
@@ -318,7 +322,7 @@ function draw() {
     if (pipeCount < numPipes + 1) {
       if (start == 0) {
         startButton.position(400, 490);
-        backButton.position(300, 490);
+        backButton.position(200, 490);
         startButton.show();
         backButton.show();
 
@@ -348,8 +352,6 @@ function draw() {
         // text("Interval: ", 380,30);
         // intervalSelect.position(390,130);
         // intervalSelect.show();
-        
-        
 
         //as difficulty increases, speed increases (lower number is faster)
         //speed = 120 - (difficulty * 10);
@@ -398,7 +400,7 @@ function draw() {
       if (start == 1) {
         waitCount += 1;
 
-        exitButton.position(500,450);
+        exitButton.position(550,490);
         exitButton.addClass("button");
         exitButton.show();
         exitButton.mousePressed(exit);
@@ -510,7 +512,7 @@ function draw() {
       // saveButton.position(300, 400);
       // saveButton.show();
       // saveButton.mousePressed(savePressed);
-      restartButton.position(30, 430);
+      restartButton.position(70, 490);
       restartButton.show();
       restartButton.mousePressed(restartPressed);
 
@@ -526,14 +528,27 @@ function draw() {
     let playTime = parseInt((minutes).toFixed(3));
     text(24);
     stroke(255);
-    text("You Played for " + playTime + " Minutes!" ,width/2,height/2);
+    text("Great Job! You Played for " + playTime + " Minutes!" ,width/2,height/2);
     text("Final Score: " + finalScore + "/" + totalPipes, width/2,height/2+30);
     text("Accuracy: " + finalScore/totalPipes*100 + "%", width/2, height/2+60);
     exitButton.hide();
     saveButton.hide();
     speedSelect.hide();
     gapSelect.hide();
-    restartButton.hide();
+    // restartButton.hide();
+
+    increaseDifficulty();
+    endTime = millis()
+    totalTime = endTime - startTime;
+
+    continueButton.position(width/2-30,490);
+    continueButton.show();
+    continueButton.mousePressed(restartPressed);
+
+    // restartButton.position(70, 490);
+    // restartButton.show();
+    // restartButton.mousePressed(restartPressed);
+
   }
   function savePressed(){
     userId = firebase.auth().currentUser.uid;
