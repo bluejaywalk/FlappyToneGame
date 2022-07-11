@@ -39,7 +39,7 @@ class Pipe{
     stroke(100);
     // strokeWeight(10);
     noStroke();
-    if (collide) {
+    if (collide && pipes[i].x < 146 && pipes[i].x > 114) {
       fill(255, 0, 0);
     }
     rect(this.x, 0, this.w, this.top);
