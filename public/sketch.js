@@ -230,6 +230,7 @@ function modelLoaded() {
         const data = childSnapshot.val();
         console.log(data);
         document.getElementById('user-info').textContent = "Range: " + data.range + " Speed: " + data.speed + " Interval: " + data.interval + " Gap: " + data.gap + " Score: " + data.score;
+
      });
 });
   //data = firebase.database().ref('/users/' + userId);
