@@ -129,7 +129,7 @@ function setup() {
   startButton.hide();
 
   backButton = createButton("Back to Range Selection");
-  backButton.addClass("button");
+  backButton.addClass("button2");
   backButton.hide();
 
   saveButton = createButton("Save");
@@ -174,7 +174,7 @@ function setup() {
   // speedSelect.option("10");
 
   speedSelect = createSlider(1, 5, 1, 1);
-  speedSelect.position(30,132);
+  speedSelect.position(30,120);
   // speedSelect.addClass("mySliders");
   speedSelect.hide();
   
@@ -191,7 +191,7 @@ function setup() {
   // gapSelect.option("10");
 
   gapSelect = createSlider(1,5,1,1);
-  gapSelect.position(230,132);
+  gapSelect.position(230,120);
   // gapSelect.addClass("mySliders");
   gapSelect.hide();
   
@@ -278,12 +278,12 @@ function draw() {
 
   if (state == 1) {
     //buttonLow.position(100, 490);
-    buttonBass.position(50,490);
+    buttonBass.position(50,350);
     //buttonMed.position(250, 490);
-    buttonTenor.position(200,490);
+    buttonTenor.position(200,350);
     //buttonHigh.position(400, 490);
-    buttonAlto.position(350,490);
-    buttonSoprano.position(500,490);
+    buttonAlto.position(350,350);
+    buttonSoprano.position(500,350);
 
 //     buttonLow.show();
 //     buttonMed.show();
@@ -323,7 +323,7 @@ function draw() {
     if (pipeCount < numPipes + 1) {
       if (start == 0) {
         startButton.position(400, 490);
-        backButton.position(200, 490);
+        backButton.position(100, 470);
         startButton.show();
         backButton.show();
 
@@ -401,7 +401,7 @@ function draw() {
       if (start == 1) {
         waitCount += 1;
 
-        exitButton.position(550,490);
+        exitButton.position(500,490);
         exitButton.addClass("button");
         exitButton.show();
         exitButton.mousePressed(exit);
@@ -542,7 +542,7 @@ function draw() {
     endTime = millis()
     totalTime = endTime - startTime;
 
-    continueButton.position(width/2-30,490);
+    continueButton.position(width/2-50,490);
     continueButton.show();
     continueButton.mousePressed(restartPressed);
 
