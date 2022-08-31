@@ -87,12 +87,21 @@ let milliseconds;
 let startTime;
 let endTime;
 
+let flyAnimation = [];
+let num = 0;
+let frameDelay = 100;
+let nextTimer = 0;
+
 let saveFlag = 0;
 function preload() {
   //an attempt to preload the model
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch);
+  flyAnimation[0] = loadImage("fly01.PNG"); 
+  flyAnimation[1] = loadImage("fly02.PNG");
+  flyAnimation[2] = loadImage("fly03.PNG");
+  flyAnimation[3] = loadImage("fly04.PNG");
 }
 
 
@@ -103,6 +112,8 @@ function setup() {
   textFont("Montserrat");
   textStyle(NORMAL);
   pipePos = height/2;
+
+  nextTime = millis() + frameDelay;
 
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
@@ -377,7 +388,7 @@ function draw() {
           circleY = height;
         }
         
-        ellipse(circleX, circleY, circleSize);
+        //ellipse(circleX, circleY, circleSize);
         history.push(circleY);
 
         if (history.length > historyLength) {
@@ -391,10 +402,21 @@ function draw() {
         let trailX = map(i, 0, history.length, -history.length / 3, circleX);
         let trailSize = map(i, 0, history.length, 20, circleSize);
         let trailAlpha = map(i, 0, history.length, 0, 100);
-        fill(255, trailAlpha);
+        fill(246, 86, 31, trailAlpha);
         //ellipse(i+history.length, trailY, trailSize);
         ellipse(trailX, trailY, trailSize);
+        fill(255);
       }
+
+      image(flyAnimation[num], circleX-64, circleY-80, circleSize*3, circleSize*4);
+        
+        if (millis() > nextTimer){
+          num += 1;
+          if(num >= flyAnimation.length){
+            num = 0;
+          }
+          nextTimer = millis() + frameDelay; 
+        }
 
       //loop through array of pipes, show and update each one
       //see pipe.js
