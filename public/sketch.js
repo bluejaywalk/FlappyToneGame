@@ -98,10 +98,10 @@ function preload() {
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch);
-  flyAnimation[0] = loadImage("fly01.PNG"); 
-  flyAnimation[1] = loadImage("fly02.PNG");
-  flyAnimation[2] = loadImage("fly03.PNG");
-  flyAnimation[3] = loadImage("fly04.PNG");
+  flyAnimation[0] = loadImage("images/fly01.PNG"); 
+  flyAnimation[1] = loadImage("images/fly02.PNG");
+  flyAnimation[2] = loadImage("images/fly03.PNG");
+  flyAnimation[3] = loadImage("images/fly04.PNG");
 }
 
 
