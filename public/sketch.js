@@ -88,9 +88,20 @@ let startTime;
 let endTime;
 
 let flyAnimation = [];
+let dizzyAnimation = [];
 let num = 0;
 let frameDelay = 100;
 let nextTimer = 0;
+
+let collideAnim = false;
+let dizzyCounter = 15;
+let dizzyCooldown = 20;
+
+let cloud1X = -150;
+let cloud2X = -150;
+let cloud1Y = 0;
+let cloud2Y = 0;
+let clouds = [];
 
 let saveFlag = 0;
 function preload() {
@@ -102,6 +113,18 @@ function preload() {
   flyAnimation[1] = loadImage("images/fly02.PNG");
   flyAnimation[2] = loadImage("images/fly03.PNG");
   flyAnimation[3] = loadImage("images/fly04.PNG");
+
+  dizzyAnimation[0] = loadImage("images/dizzy01.PNG");
+  dizzyAnimation[1] = loadImage("images/dizzy02.PNG");
+  dizzyAnimation[2] = loadImage("images/dizzy03.PNG");
+  dizzyAnimation[3] = loadImage("images/dizzy04.PNG");
+  
+  clouds[0] = loadImage("images/cloud01.PNG");
+  clouds[1] = loadImage("images/cloud02.PNG");
+  clouds[2] = loadImage("images/cloud03.PNG");
+  clouds[3] = loadImage("images/cloud04.PNG");
+  clouds[4] = loadImage("images/cloud05.PNG");
+  clouds[5] = loadImage("images/cloud06.PNG");
 }
 
 
@@ -217,7 +240,7 @@ function setup() {
 //   intervalSelect.option("8");
 //   intervalSelect.option("9");
 //   intervalSelect.option("10");
-  
+ 
 //   intervalSelect.hide();
 }
 
@@ -274,10 +297,31 @@ function getPitch() {
 }
 
 function draw() {
-  background(0);
+  background(0, 113, 171);
   //print(waitCount);
   //print(state);
   //if we haven't started yet (model is still loading)
+
+  // image(clouds[0],cloud1X,cloud1Y,150,150);
+  // image(clouds[1],cloud2X,cloud2Y,175,175);
+
+  if(collideAnim == false){
+    cloud1X-=1;
+    cloud2X-=1.2;
+  }else{
+    cloud1X-=0.5;
+    cloud2X-=0.6;
+  }
+  
+  // if(cloud1X < -150){
+  //   cloud1X = 650;
+  //   cloud1Y = random(50,height-50);
+  // }
+  
+  // if(cloud2X < -150){
+  //   cloud2X = 650;
+  //   cloud2Y = random(50,height-50);
+  // }
 
   if (state == 0) {
     fill(255);
@@ -337,6 +381,7 @@ function draw() {
         backButton.position(100, 470);
         startButton.show();
         backButton.show();
+        exitButton.hide();
 
         startButton.mousePressed(startPressed);
         backButton.mousePressed(backPressed);
@@ -400,15 +445,42 @@ function draw() {
       for (i = 0; i < history.length; i++) {
         let trailY = history[i];
         let trailX = map(i, 0, history.length, -history.length / 3, circleX);
-        let trailSize = map(i, 0, history.length, 20, circleSize);
+        let trailSize = map(i, 0, history.length, 10, circleSize);
         let trailAlpha = map(i, 0, history.length, 0, 100);
-        fill(246, 86, 31, trailAlpha);
+        fill(233, 144, 120, trailAlpha);
+
         //ellipse(i+history.length, trailY, trailSize);
-        ellipse(trailX, trailY, trailSize);
+        ellipse(trailX-10, trailY, trailSize);
         fill(255);
       }
 
-      image(flyAnimation[num], circleX-64, circleY-80, circleSize*3, circleSize*4);
+      if(dizzyCounter <= 48){
+        collideAnim = true;
+      }else{
+        collideAnim = false;
+        //dizzyCooldown
+      }
+      
+      dizzyCounter += 1;
+      dizzyCooldown += 1;
+
+      if ((collideAnim == true)) {
+        image(
+          dizzyAnimation[num],
+          circleX - 80,
+          circleY - 80,
+          circleSize * 3,
+          circleSize * 4
+        );
+      } else {
+        image(
+          flyAnimation[num],
+          circleX - 80,
+          circleY - 80,
+          circleSize * 3,
+          circleSize * 4
+        );
+      }
         
         if (millis() > nextTimer){
           num += 1;
@@ -458,11 +530,15 @@ function draw() {
           collide = pointCircle(px, py, circleX, circleY);
          // console.log(collide);
           
-          if(collide){
-            hit = 1;
-          } else {
-            hit = 0;
+         if (collide) {
+          hit = 1;
+          if(dizzyCooldown >= 100){
+              dizzyCounter = 0;
+              dizzyCooldown = 0;
           }
+        } else {
+          hit = 0;
+        }
 
           //need to find a better way to do this
           if (pipes[i].x < 146 && pipes[i].x > 114 && hit == 0 && addScore == true) {
@@ -481,7 +557,7 @@ function draw() {
 
         //create a new pipe every X number of frames after the model loads
         if ((frameCount - startFrame) % speed == 0 && waitCount > 200) {
-          if (mode == "Random Notes") {
+          if (mode == "Random Notes" && collideAnim == false) {
             pipes.push(new Pipe());
           }
     
