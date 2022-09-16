@@ -109,6 +109,7 @@ let saveFlag = 0;
 
 let bars = [];
 
+//preview buttons
 let playIcon;
 
 function preload() {
@@ -135,7 +136,7 @@ function preload() {
   bars[2] = loadImage("images/bar01_red.png");
   bars[3] = loadImage("images/bar02_red.png");
 
-  playIcon = loadImage("images/playicon.png");
+  // playIcon = loadImage("images/playicon.png");
 }
 
 
@@ -157,17 +158,29 @@ function setup() {
   buttonBass.addClass("button");
   buttonBass.hide();
 
+  buttonBassPlay = createImg("images/playIcon.png");
+  buttonBassPlay.hide();
+
   buttonTenor = createButton("Tenor");
   buttonTenor.addClass("button");
   buttonTenor.hide();
+
+  buttonTenorPlay = createImg("images/playIcon.png");
+  buttonTenorPlay.hide();
 
   buttonAlto = createButton("Alto");
   buttonAlto.addClass("button");
   buttonAlto.hide();
   
+  buttonAltoPlay = createImg("images/playIcon.png");
+  buttonAltoPlay.hide();
+
   buttonSoprano = createButton("Soprano");
   buttonSoprano.addClass("button");
   buttonSoprano.hide();
+
+  buttonSopranoPlay = createImg("images/playIcon.png");
+  buttonSopranoPlay.hide();
 
   startButton = createButton("Start");
   startButton.addClass("button");
@@ -353,11 +366,18 @@ function draw() {
   if (state == 1) {
     //buttonLow.position(100, 490);
     buttonBass.position(50,350);
+    buttonBassPlay.position(75,400);
     //buttonMed.position(250, 490);
     buttonTenor.position(200,350);
+    buttonTenorPlay.position(225,400);
+
     //buttonHigh.position(400, 490);
     buttonAlto.position(350,350);
+    buttonAltoPlay.position(375,400);
+
     buttonSoprano.position(500,350);
+    buttonSopranoPlay.position(525,400);
+
 
 //     buttonLow.show();
 //     buttonMed.show();
@@ -365,21 +385,29 @@ function draw() {
     
     
     buttonBass.show();
+    buttonBassPlay.show();
     buttonTenor.show();
+    buttonTenorPlay.show();
     buttonAlto.show();
+    buttonAltoPlay.show();
     buttonSoprano.show();
-    
+    buttonSopranoPlay.show();
+
     state = 2;
   }
   if (state == 2) {
     
-    buttonBass.mouseOver(bassPlay);
+    // buttonBass.mouseOver(bassPlay);
+    buttonBassPlay.mousePressed(bassPlay);
     buttonBass.mouseOut(playFunction);
-    buttonTenor.mouseOver(tenorPlay);
+    // buttonTenor.mouseOver(tenorPlay);
+    buttonTenorPlay.mousePressed(tenorPlay);
     buttonTenor.mouseOut(playFunction);
-    buttonAlto.mouseOver(altoPlay);
+    // buttonAlto.mouseOver(altoPlay);
+    buttonAltoPlay.mousePressed(altoPlay);
     buttonAlto.mouseOut(playFunction);
-    buttonSoprano.mouseOver(sopranoPlay);
+    // buttonSoprano.mouseOver(sopranoPlay);
+    buttonSopranoPlay.mousePressed(sopranoPlay);
     buttonSoprano.mouseOut(playFunction);
 
     fill(255);

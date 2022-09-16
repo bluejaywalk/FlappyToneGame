@@ -14,6 +14,12 @@ function bass() {
   buttonTenor.hide();
   buttonAlto.hide();
   buttonSoprano.hide();
+
+  buttonBassPlay.hide();
+  buttonTenorPlay.hide();
+  buttonAltoPlay.hide();
+  buttonSopranoPlay.hide();
+
   state = 3;
 }
 
@@ -26,6 +32,12 @@ function tenor() {
   buttonTenor.hide();
   buttonAlto.hide();
   buttonSoprano.hide();
+
+  buttonBassPlay.hide();
+  buttonTenorPlay.hide();
+  buttonAltoPlay.hide();
+  buttonSopranoPlay.hide();
+
 
   for (i = 0; i < notes.length; i++) {
     //notes[i] += 4;
@@ -42,6 +54,12 @@ function alto() {
   buttonTenor.hide();
   buttonAlto.hide();
   buttonSoprano.hide();
+
+  buttonBassPlay.hide();
+  buttonTenorPlay.hide();
+  buttonAltoPlay.hide();
+  buttonSopranoPlay.hide();
+
   state = 3;
 }
 
@@ -54,6 +72,12 @@ function soprano() {
   buttonTenor.hide();
   buttonAlto.hide();
   buttonSoprano.hide();
+
+  buttonBassPlay.hide();
+  buttonTenorPlay.hide();
+  buttonAltoPlay.hide();
+  buttonSopranoPlay.hide();
+
   state = 3;
 }
 
