@@ -41,8 +41,15 @@ class Pipe{
     noStroke();
     if (collide && pipes[i].x < 146 && pipes[i].x > 114) {
       fill(255, 0, 0);
+      image(bars[3],this.x,this.top-500,70,500);
+      image(bars[2],this.x,height - this.bottom,70,500);
+    }else{
+      image(bars[1],this.x,this.top-500,70,500);
+      image(bars[0],this.x,height - this.bottom,70,500);
+
     }
-    rect(this.x, 0, this.w, this.top);
+    // rect(this.x, 0, this.w, this.top);
+
     px = this.x;
     // py = this.top + this.spacing;
     if(circleY < this.top + this.spacing/2){
@@ -53,7 +60,8 @@ class Pipe{
       hitTop = false;
     }
     //console.log(px,py);
-    rect(this.x, height - this.bottom, this.w, this.bottom);
+    // rect(this.x, height - this.bottom, this.w, this.bottom);
+
     //print("top: " + this.top + " bottom: " + this.bottom);
 
   }

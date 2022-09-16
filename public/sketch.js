@@ -99,11 +99,17 @@ let dizzyCooldown = 20;
 
 let cloud1X = -150;
 let cloud2X = -150;
+let cloud3X = -150;
 let cloud1Y = 0;
 let cloud2Y = 0;
+let cloud3Y = 0;
 let clouds = [];
 
 let saveFlag = 0;
+
+let bars = [];
+
+let playIcon;
 
 function preload() {
   //an attempt to preload the model
@@ -120,12 +126,16 @@ function preload() {
   dizzyAnimation[2] = loadImage("images/dizzy03.PNG");
   dizzyAnimation[3] = loadImage("images/dizzy04.PNG");
   
-  clouds[0] = loadImage("images/cloud01.PNG");
-  clouds[1] = loadImage("images/cloud02.PNG");
-  clouds[2] = loadImage("images/cloud03.PNG");
-  clouds[3] = loadImage("images/cloud04.PNG");
-  clouds[4] = loadImage("images/cloud05.PNG");
-  clouds[5] = loadImage("images/cloud06.PNG");
+  clouds[0] = loadImage("images/cloud01.png");
+  clouds[1] = loadImage("images/cloud02.png");
+  clouds[2] = loadImage("images/cloud03.png");
+
+  bars[0] = loadImage("images/bar01.png");
+  bars[1] = loadImage("images/bar02.png");
+  bars[2] = loadImage("images/bar01_red.png");
+  bars[3] = loadImage("images/bar02_red.png");
+
+  playIcon = loadImage("images/playicon.png");
 }
 
 
@@ -303,25 +313,34 @@ function draw() {
   //print(state);
   //if we haven't started yet (model is still loading)
 
-  // image(clouds[0],cloud1X,cloud1Y,150,150);
-  // image(clouds[1],cloud2X,cloud2Y,175,175);
+  image(clouds[0],cloud1X,cloud1Y,150,99);
+  image(clouds[1],cloud2X,cloud2Y,200,124);
+  image(clouds[2],cloud3X,cloud3Y,200,84);
+  // image(bars[0],width/2,height/2,70,500);
 
   if(collideAnim == false){
     cloud1X-=1;
     cloud2X-=1.2;
+    cloud3X-= 1.4
   }else{
     cloud1X-=0.5;
     cloud2X-=0.6;
+    cloud3X-=0.7
   }  
-  // if(cloud1X < -150){
-  //   cloud1X = 650;
-  //   cloud1Y = random(50,height-50);
-  // }
+  if(cloud1X < -200){
+    cloud1X = 650;
+    cloud1Y = random(50,height-50);
+  }
   
-  // if(cloud2X < -150){
-  //   cloud2X = 650;
-  //   cloud2Y = random(50,height-50);
-  // }
+  if(cloud2X < -200){
+    cloud2X = 650;
+    cloud2Y = random(50,height-50);
+  }
+
+  if(cloud3X < -200){
+    cloud3X = 650;
+    cloud3Y = random(50,height-50);
+  }
 
   if (state == 0) {
     fill(255);
@@ -418,9 +437,13 @@ function draw() {
         //let targetCircleY = map(currentFreq,voiceLow,voiceHigh,height,0,true);
         let targetCircleY = map(Math.log10(currentFreq),Math.log10(voiceLow),Math.log10(voiceHigh),height,0);
         let dy = targetCircleY - circleY;
+        if(collideAnim == false){
         circleY += dy * easing;
 
+        }
+
         //user circle
+
         fill(255);
         noStroke();
         circleVector.y = circleY;
