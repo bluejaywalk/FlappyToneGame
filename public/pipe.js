@@ -59,7 +59,12 @@ class Pipe{
   }
 
   update() {
-    this.x -= (3.5 +(speedValue/2));
+
+    if(collideAnim == false){
+      this.x -= (3.5 +(speedValue/2));
+    }
+
+    // this.x -= (3.5 +(speedValue/2));
     // this.x -= (speedValue);
   }
 
