@@ -92,6 +92,16 @@ let num = 0;
 let frameDelay = 100;
 let nextTimer = 0;
 
+let collideAnim = false;
+let dizzyCounter = 15;
+let dizzyCooldown = 20;
+
+let cloud1X = -150;
+let cloud2X = -150;
+let cloud1Y = 0;
+let cloud2Y = 0;
+let clouds = [];
+
 let saveFlag = 0;
 function preload() {
   //an attempt to preload the model
@@ -102,6 +112,18 @@ function preload() {
   flyAnimation[1] = loadImage("images/fly02.PNG");
   flyAnimation[2] = loadImage("images/fly03.PNG");
   flyAnimation[3] = loadImage("images/fly04.PNG");
+
+  dizzyAnimation[0] = loadImage("images/dizzy01.PNG");
+  dizzyAnimation[1] = loadImage("images/dizzy02.PNG");
+  dizzyAnimation[2] = loadImage("images/dizzy03.PNG");
+  dizzyAnimation[3] = loadImage("images/dizzy04.PNG");
+  
+  clouds[0] = loadImage("images/cloud01.PNG");
+  clouds[1] = loadImage("images/cloud02.PNG");
+  clouds[2] = loadImage("images/cloud03.PNG");
+  clouds[3] = loadImage("images/cloud04.PNG");
+  clouds[4] = loadImage("images/cloud05.PNG");
+  clouds[5] = loadImage("images/cloud06.PNG");
 }
 
 
