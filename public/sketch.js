@@ -104,6 +104,7 @@ let cloud2Y = 0;
 let clouds = [];
 
 let saveFlag = 0;
+
 function preload() {
   //an attempt to preload the model
   audioContext = getAudioContext();
@@ -311,8 +312,7 @@ function draw() {
   }else{
     cloud1X-=0.5;
     cloud2X-=0.6;
-  }
-  
+  }  
   // if(cloud1X < -150){
   //   cloud1X = 650;
   //   cloud1Y = random(50,height-50);
