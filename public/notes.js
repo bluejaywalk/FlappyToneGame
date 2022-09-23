@@ -206,6 +206,11 @@ function init() {
   }
 }
 
+function startGame(){
+  state = 1;
+  buttonStartGame.hide();
+}
+
 //increase difficulty by 1
 function increaseDifficulty() {
   if (increase && difficulty < 5) {

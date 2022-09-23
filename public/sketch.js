@@ -109,6 +109,8 @@ let saveFlag = 0;
 
 let bars = [];
 
+let title;
+
 //preview buttons
 let playIcon;
 
@@ -135,6 +137,8 @@ function preload() {
   bars[1] = loadImage("images/bar02.png");
   bars[2] = loadImage("images/bar01_red.png");
   bars[3] = loadImage("images/bar02_red.png");
+
+  title = loadImage("images/title.png");
 
   // playIcon = loadImage("images/playicon.png");
 }
@@ -203,6 +207,10 @@ function setup() {
 
   exitButton = createButton("Exit");
   exitButton.hide();
+
+  buttonStartGame = createButton("Play");
+  buttonStartGame.hide();
+  buttonStartGame.addClass("button");
 
   //setting a vector to the right side of the circle, useful for passing in between functions
   circleVector = createVector(circleX + 50, height / 2);
@@ -306,7 +314,7 @@ function getPitch() {
   pitch.getPitch(function (err, frequency) {
     if (frequency) {
       if (state == 0) {
-        state = 1;
+        state = 0.5;
       }
       currentFreq = frequency;
 
@@ -326,9 +334,7 @@ function draw() {
   //print(state);
   //if we haven't started yet (model is still loading)
 
-  image(clouds[0],cloud1X,cloud1Y,150,99);
-  image(clouds[1],cloud2X,cloud2Y,200,124);
-  image(clouds[2],cloud3X,cloud3Y,200,84);
+  
   // image(bars[0],width/2,height/2,70,500);
 
   if(collideAnim == false){
@@ -361,6 +367,13 @@ function draw() {
     text("Loading...", width / 2, height / 2);
   }
 
+  if (state == 0.5){
+    image(title,0,0,width,height);
+    buttonStartGame.position(width/2-50,height-50);
+    buttonStartGame.show();
+    buttonStartGame.mousePressed(startGame);
+  }
+
   //module has loaded (start >0)
 
   if (state == 1) {
@@ -383,7 +396,6 @@ function draw() {
 //     buttonMed.show();
 //     buttonHigh.show();
     
-    
     buttonBass.show();
     buttonBassPlay.show();
     buttonTenor.show();
@@ -392,6 +404,8 @@ function draw() {
     buttonAltoPlay.show();
     buttonSoprano.show();
     buttonSopranoPlay.show();
+    gapSelect.hide();
+    speedSelect.hide();
 
     state = 2;
   }
@@ -411,7 +425,9 @@ function draw() {
     buttonSoprano.mouseOut(playFunction);
 
     fill(255);
-    text("Choose an option that you think suits your vocal range:", width/2, height/2);
+    text("Click the play icon (bottom) to preview each vocal range,", width/2, height/2-120);
+    text("then click the top button to choose one", width/2, height/2-80);
+    text("that you think suits your vocal range:", width/2, height/2-40);
     buttonBass.mousePressed(bass);
     buttonTenor.mousePressed(tenor);
     buttonAlto.mousePressed(alto);
@@ -422,6 +438,11 @@ function draw() {
 
   if (state == 3) {
         
+    image(clouds[0],cloud1X,cloud1Y,150,99);
+    image(clouds[1],cloud2X,cloud2Y,200,124);
+    image(clouds[2],cloud3X,cloud3Y,200,84);
+
+
     if (pipeCount < numPipes + 1) {
       if (start == 0) {
         startButton.position(400, 490);
