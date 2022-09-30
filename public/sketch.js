@@ -378,18 +378,18 @@ function draw() {
 
   if (state == 1) {
     //buttonLow.position(100, 490);
-    buttonBass.position(50,350);
-    buttonBassPlay.position(75,400);
+    buttonBass.position(50,400);
+    buttonBassPlay.position(75,330);
     //buttonMed.position(250, 490);
-    buttonTenor.position(200,350);
-    buttonTenorPlay.position(225,400);
+    buttonTenor.position(200,400);
+    buttonTenorPlay.position(225,330);
 
     //buttonHigh.position(400, 490);
-    buttonAlto.position(350,350);
-    buttonAltoPlay.position(375,400);
+    buttonAlto.position(350,400);
+    buttonAltoPlay.position(375,330);
 
-    buttonSoprano.position(500,350);
-    buttonSopranoPlay.position(525,400);
+    buttonSoprano.position(500,400);
+    buttonSopranoPlay.position(525,330);
 
 
 //     buttonLow.show();
@@ -425,9 +425,12 @@ function draw() {
     buttonSoprano.mouseOut(playFunction);
 
     fill(255);
-    text("Click the play icon (bottom) to preview each vocal range,", width/2, height/2-120);
+    textSize(30);
+    text("RANGE SELECTION", width/2, height/2-140)
+    textSize(15);
+    text("Click the play icon (bottom) to preview each vocal range,", width/2, height/2-100);
     text("then click the top button to choose one", width/2, height/2-80);
-    text("that you think suits your vocal range:", width/2, height/2-40);
+    text("that you think suits your vocal range:", width/2, height/2-60);
     buttonBass.mousePressed(bass);
     buttonTenor.mousePressed(tenor);
     buttonAlto.mousePressed(alto);
