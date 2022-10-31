@@ -319,7 +319,7 @@ function modelLoaded() {
 function viewStats(){
   statsURL = "stats.html?uid=" + userId;
   statsURLdeploy = "https://flappy-tone-game.web.app/stats.html?uid=" + userId;
-  window.open(statsURL);
+  window.open(statsURLdeploy);
 }
 
 
