@@ -164,28 +164,28 @@ function setup() {
   buttonBass.addClass("button");
   buttonBass.hide();
 
-  buttonBassPlay = createImg("images/playIcon.png");
+  buttonBassPlay = createImg("images/playicon.png");
   buttonBassPlay.hide();
 
   buttonTenor = createButton("Tenor");
   buttonTenor.addClass("button");
   buttonTenor.hide();
 
-  buttonTenorPlay = createImg("images/playIcon.png");
+  buttonTenorPlay = createImg("images/playicon.png");
   buttonTenorPlay.hide();
 
   buttonAlto = createButton("Alto");
   buttonAlto.addClass("button");
   buttonAlto.hide();
   
-  buttonAltoPlay = createImg("images/playIcon.png");
+  buttonAltoPlay = createImg("images/playicon.png");
   buttonAltoPlay.hide();
 
   buttonSoprano = createButton("Soprano");
   buttonSoprano.addClass("button");
   buttonSoprano.hide();
 
-  buttonSopranoPlay = createImg("images/playIcon.png");
+  buttonSopranoPlay = createImg("images/playicon.png");
   buttonSopranoPlay.hide();
 
   startButton = createButton("Start");
@@ -317,6 +317,7 @@ function modelLoaded() {
 }
 
 function viewStats(){
+  console.log("view stats");
   statsURL = "stats.html?uid=" + userId;
   statsURLdeploy = "https://flappy-tone-game.web.app/stats.html?uid=" + userId;
   window.open(statsURLdeploy);
