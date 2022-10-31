@@ -131,9 +131,9 @@ function preload() {
   dizzyAnimation[2] = loadImage("images/dizzy03.PNG");
   dizzyAnimation[3] = loadImage("images/dizzy04.PNG");
   
-  clouds[0] = loadImage("images/cloud01.png");
-  clouds[1] = loadImage("images/cloud02.png");
-  clouds[2] = loadImage("images/cloud03.png");
+  clouds[0] = loadImage("images/cloud01.PNG");
+  clouds[1] = loadImage("images/cloud02.PNG");
+  clouds[2] = loadImage("images/cloud03.PNG");
 
   bars[0] = loadImage("images/bar01.png");
   bars[1] = loadImage("images/bar02.png");
