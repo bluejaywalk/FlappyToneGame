@@ -1,0 +1,150 @@
+<html><head>
+    <script src="p5.js"></script>
+    <script src="p5.dom.min.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <script src="ml5.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.0/firebase-database.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400" rel="stylesheet">
+    <script src="firesetup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script type="text/javascript">
+
+  var userId;
+  var allUsers;
+  var length;
+  var timestampArray = [];
+  var dateArray = [];
+  var scoreArray = [];
+  var gapArray = [];
+  var speedArray = [];
+  points = [];
+  initApp = function() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var uid = user.uid;
+        user.getIdToken().then(function(accessToken) {
+         
+
+          userId = uid;
+
+       
+        });
+      } else {
+        // User is signed out.
+        document.getElementById('sign-in-status').textContent = 'Signed out';
+        document.getElementById('sign-in').textContent = 'Sign in';
+        document.getElementById('account-details').textContent = 'null';
+      }
+    }, function(error) {
+      console.log(error);
+    });
+  };
+
+  window.addEventListener('load', function() {
+    initApp()
+  });
+
+  
+   var pickedUser = "28wcnZlrgDWVlIT93LN7sbHVZhB2";
+
+
+</script>
+</head>
+<body>
+  <canvas id="line-chart" width="800" height="450"></canvas>
+  <script>
+
+function getData(callback){
+ firebase.database().ref('/users/' + pickedUser).once('value').then(function(snapshot) {
+    data = snapshot.val();
+     //console.log(data);
+     //console.log(typeof data);
+    
+
+    //var currentTCArray = Object.keys(data);
+    //console.log (currentTCArray);
+
+    timestampArray = Object.keys(data);
+    Object.keys(data).forEach(key => {
+      //console.log(data[key]["score"]);
+      scoreArray.push(data[key]["score"]);
+      gapArray.push(data[key]["gap"]);
+      speedArray.push(data[key]["speed"]);
+    });
+
+    console.log(timestampArray);
+    //console.log(scoreArray);
+
+    for (i = 0; i < timestampArray.length; i++){
+      timestampTest = timestampArray[i] *  1000;
+      var d = new Date(timestampTest);
+
+      newDate = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" + ("00" + d.getDate()).slice(-2);
+      dateArray.push(newDate);
+    }
+
+    //var currentTCArray = Object.keys(data); // array of all current keys for this user
+    //  for(i = 0; i < currentTCArray.length; i++){
+    //   var previousDate = currentTCArray[i]; // the current data on firebase 
+    //   var currentDateSeconds = Date.parse(previousDate)/1000 // convert the date string back to seconds epoch time
+    //   console.log(currentDateSeconds)
+    //   var currentData = data[previousDate] // the data for this time grabbed off firebase
+    //   console.log(currentData)
+    //   currentData['timeString'] = previousDate
+
+    //   firebase.database().ref('users').child(pickedUser).child(currentDateSeconds).set(currentData);// save this data with a new key
+      
+    //  }
+    
+    callback();
+});
+ 
+}
+
+
+function drawTable(){
+    console.log("inputting data");
+  new Chart(document.getElementById("line-chart"), {
+    type: 'line',
+    data: {
+      labels: dateArray,
+      datasets: [{ 
+          data: scoreArray,
+          label: "Score",
+          borderColor: "#3e95cd",
+          fill: false
+        },{
+          data: speedArray,
+          label: "Speed",
+          borderColor: "#8e5ea2",
+          fill: false
+        },{
+          data: gapArray,
+          label: "Gap",
+          borderColor: "#3cba9f",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Test Chart'
+      }
+    }
+  });
+}
+
+
+getData(drawTable);
+</script>
+ 
+</body>
+</html>

@@ -114,6 +114,8 @@ let title;
 //preview buttons
 let playIcon;
 
+let statsButton;
+
 function preload() {
   //an attempt to preload the model
   audioContext = getAudioContext();
@@ -212,6 +214,11 @@ function setup() {
   buttonStartGame.hide();
   buttonStartGame.addClass("button");
 
+  statsButton = createButton("My Stats");
+  statsButton.addClass("button");
+  statsButton.position(530, 490);
+  statsButton.mousePressed(viewStats);
+
   //setting a vector to the right side of the circle, useful for passing in between functions
   circleVector = createVector(circleX + 50, height / 2);
 
@@ -308,6 +315,11 @@ function modelLoaded() {
   // });
   getPitch();
 }
+
+function viewStats(){
+
+}
+
 
 function getPitch() {
   //gets a frequency, sets it to currentFreq, also converts to midi Note
