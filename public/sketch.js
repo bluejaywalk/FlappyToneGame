@@ -317,7 +317,8 @@ function modelLoaded() {
 }
 
 function viewStats(){
-
+  statsURL = "stats.html?uid=" + userId;
+  window.open(statsURL);
 }
 
 

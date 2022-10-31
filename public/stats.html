@@ -33,6 +33,7 @@
          
 
           userId = uid;
+          console.log(uid);
 
        
         });
@@ -51,8 +52,9 @@
     initApp()
   });
 
-  
-   var pickedUser = "28wcnZlrgDWVlIT93LN7sbHVZhB2";
+  let parameters = new URLSearchParams(window.location.search);
+  var pickedUser = parameters.get("uid");
+  console.log("pickedUser is " + pickedUser);
 
 
 </script>
