@@ -116,6 +116,8 @@ let playIcon;
 
 let statsButton;
 
+let totalRounds = 0;
+
 function preload() {
   //an attempt to preload the model
   audioContext = getAudioContext();
@@ -684,9 +686,14 @@ function draw() {
  
     //if max number of pipes reached
     else {
+      totalRounds += 1;
       text("Round Completed!", width/2, height/2);
       text("Score: " + score + "/" + numPipes, width/2, height/2 + 30);
-
+     
+      if(totalRounds%5 == 0){
+        text("Great job! We suggest that you take a half hour break before you continue, maybe grab a drink!",
+        width/2, height/2 + 40);
+      }
       increaseDifficulty();
       //print(difficulty);
       endTime = millis()
