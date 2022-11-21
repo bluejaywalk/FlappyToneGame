@@ -213,7 +213,8 @@ function startGame(){
 
 //increase difficulty by 1
 function increaseDifficulty() {
-  if (increase && difficulty < 5) {
+  //if (increase && difficulty < 5) {
+  if (increase) {
     difficulty += 1;
     finalScore += score;
     totalPipes += numPipes;

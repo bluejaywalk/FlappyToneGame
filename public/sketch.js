@@ -780,7 +780,6 @@ function pointCircle(gx, gy, cx, cy) {
 
  let d = dist(gx, gy, cx, cy);
   
-  
   if(d <= circleSize/2) {
    return true; 
   }
