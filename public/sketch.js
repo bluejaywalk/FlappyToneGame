@@ -192,7 +192,7 @@ function setup() {
   startButton.addClass("button");
   startButton.hide();
 
-  backButton = createButton("Back to Range Selection");
+  backButton = createButton("Back");
   backButton.addClass("button2");
   backButton.hide();
 
@@ -216,7 +216,7 @@ function setup() {
 
   statsButton = createButton("My Stats");
   statsButton.addClass("button");
-  statsButton.position(530, 490);
+  statsButton.position(590, 490);
   statsButton.mousePressed(viewStats);
 
   //setting a vector to the right side of the circle, useful for passing in between functions
@@ -743,8 +743,9 @@ function draw() {
     userId = firebase.auth().currentUser.uid;
     console.log(userId + "saved");
     
-  
-    firebase.database().ref('users/' + userId + '/' + Date()).set({
+    var currDate = Date();
+    var currentDateSeconds = Date.parse(currDate)/1000
+    firebase.database().ref('users/' + userId + '/' + currentDateSeconds).set({
       range: range,
       speed: int(speedValue),
       interval: int(interval),

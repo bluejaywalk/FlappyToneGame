@@ -54,6 +54,7 @@
 
   let parameters = new URLSearchParams(window.location.search);
   var pickedUser = parameters.get("uid");
+  //var pickedUser = "iZIfo4dyvZU44pnMtYvigaKaHSF2"
   console.log("pickedUser is " + pickedUser);
 
 
@@ -92,7 +93,7 @@ function getData(callback){
       dateArray.push(newDate);
     }
 
-    //var currentTCArray = Object.keys(data); // array of all current keys for this user
+    // var currentTCArray = Object.keys(data); // array of all current keys for this user
     //  for(i = 0; i < currentTCArray.length; i++){
     //   var previousDate = currentTCArray[i]; // the current data on firebase 
     //   var currentDateSeconds = Date.parse(previousDate)/1000 // convert the date string back to seconds epoch time
