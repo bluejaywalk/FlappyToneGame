@@ -157,11 +157,12 @@ function setup() {
   pipePos = height/2;
 
   nextTime = millis() + frameDelay;
-
+  //starting audio context
   audioContext = getAudioContext();
   mic = new p5.AudioIn();
   mic.start(startPitch);
 
+  //creating the buttons
   buttonBass = createButton("Bass");
   buttonBass.addClass("button");
   buttonBass.hide();
@@ -236,53 +237,18 @@ function setup() {
   //modeSelect.changed(modeChanged);
   modeSelect.hide();
   
-  // speedSelect = createSelect();
-  // speedSelect.option("Slowest (Easiest)",[1]);
-  // speedSelect.option("Slow",[2]);
-  // speedSelect.option("Neutral",[3]);
-  // speedSelect.option("Fast",[4]);
-  // speedSelect.option("Fastest (Hardest)",[5]);
-  // speedSelect.option("6");
-  // speedSelect.option("7");
-  // speedSelect.option("8");
-  // speedSelect.option("9");
-  // speedSelect.option("10");
 
   speedSelect = createSlider(1, 5, 1, 1);
   speedSelect.position(30,120);
   // speedSelect.addClass("mySliders");
   speedSelect.hide();
   
-  // gapSelect = createSelect();
-  // gapSelect.option("Loosest (Easiest)",[1]);
-  // gapSelect.option("Loose",[2]);
-  // gapSelect.option("Neutral",[3]);
-  // gapSelect.option("Precise",[4]);
-  // gapSelect.option("Most Precise (Hardest)",[5]);
-  // gapSelect.option("6");
-  // gapSelect.option("7");
-  // gapSelect.option("8");
-  // gapSelect.option("9");
-  // gapSelect.option("10");
 
   gapSelect = createSlider(1,5,1,1);
   gapSelect.position(230,120);
   // gapSelect.addClass("mySliders");
   gapSelect.hide();
   
-//   intervalSelect = createSelect();
-//   intervalSelect.option("1");
-//   intervalSelect.option("2");
-//   intervalSelect.option("3");
-//   intervalSelect.option("4");
-//   intervalSelect.option("5");
-//   intervalSelect.option("6");
-//   intervalSelect.option("7");
-//   intervalSelect.option("8");
-//   intervalSelect.option("9");
-//   intervalSelect.option("10");
- 
-//   intervalSelect.hide();
 }
 
 function startPitch() {
@@ -351,8 +317,6 @@ function draw() {
   //print(state);
   //if we haven't started yet (model is still loading)
 
-  
-  // image(bars[0],width/2,height/2,70,500);
 
   if(collideAnim == false){
     cloud1X-=1;
@@ -408,10 +372,6 @@ function draw() {
     buttonSoprano.position(500,400);
     buttonSopranoPlay.position(525,330);
 
-
-//     buttonLow.show();
-//     buttonMed.show();
-//     buttonHigh.show();
     
     buttonBass.show();
     buttonBassPlay.show();
@@ -427,7 +387,7 @@ function draw() {
     state = 2;
   }
   if (state == 2) {
-    
+    //range selection screen
     // buttonBass.mouseOver(bassPlay);
     buttonBassPlay.mousePressed(bassPlay);
     buttonBass.mouseOut(playFunction);
@@ -457,7 +417,7 @@ function draw() {
   //pipe count
 
   if (state == 3) {
-        
+      //speed and gap selection screen
     image(clouds[0],cloud1X,cloud1Y,150,99);
     image(clouds[1],cloud2X,cloud2Y,200,124);
     image(clouds[2],cloud3X,cloud3Y,200,84);
@@ -474,34 +434,25 @@ function draw() {
         startButton.mousePressed(startPressed);
         backButton.mousePressed(backPressed);
 
-        // text("Mode: ", width * 0.6, height * 0.4);
-        // modeSelect.position(width * 0.6, height * 0.6);
-        // modeSelect.show();
-        // mode = modeSelect.value();
         mode = "Random Notes";
         //console.log(mode);
         
         textSize(20);
         text("Speed: ", 65,30);
-        // speedSelect.position(30,130);
         speedSelect.show();
 
         text("Gap Size: ", 275,30);
-        // gapSelect.position(210,130);
         gapSelect.show();
 
         textSize(15);
         text("Slowest <> Fastest", 105, 80);
         text("Largest <> Smallest", 307, 80);
         
-        // text("Interval: ", 380,30);
-        // intervalSelect.position(390,130);
-        // intervalSelect.show();
-
         //as difficulty increases, speed increases (lower number is faster)
         //speed = 120 - (difficulty * 10);
       }
       if (currentFreq) {
+        //this is what makes the bird move
         //text(currentNote, 300, 100);
         //let targetCircleY = map(currentFreq,voiceLow,voiceHigh,height,0,true);
         let targetCircleY = map(Math.log10(currentFreq),Math.log10(voiceLow),Math.log10(voiceHigh),height,0);
@@ -632,7 +583,7 @@ function draw() {
           hit = 0;
         }
 
-          //need to find a better way to do this
+          //might want to find a better way to do this
           if (pipes[i].x < 146 && pipes[i].x > 114 && hit == 0 && addScore == true) {
             score += 1;
             addScore = false;
@@ -717,6 +668,7 @@ function draw() {
     }
   }
   if(state == 4){
+    //end of cycle
     textAlign(CENTER);
     // let milliseconds = millis();
     let minutes = milliseconds/60000;
@@ -747,6 +699,7 @@ function draw() {
 
   }
   function savePressed(){
+    //general save function, not just when save is pressed
     userId = firebase.auth().currentUser.uid;
     console.log(userId + "saved");
     

@@ -1,3 +1,5 @@
+//helper functions for notes and running the game sketch
+
 let notes = [];
 let playing = 0;
 let currNote = 0;
